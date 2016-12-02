@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ServiceLockTest</string>
+   
+    <string name="device_admin_not_enabled">ServiceLockTest application was not marked as Device Administrator. Please check Device administrator in Security settings.</string>
+    <string name="admin_receiver_status_enabled">ServiceLockTest was added as Device Administrator</string>
+    <string name="admin_receiver_status_disabled">ServiceLockTest was removed from Device Administrators list</string>
+</resources>

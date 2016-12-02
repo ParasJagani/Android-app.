@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="org.nosemaj.service_lock_test"
+      android:versionCode="1"
+      android:versionName="1.0">
+       
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="19" />
+     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+     <uses-permission android:name="android.permission.WAKE_LOCK" />
+     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+     <uses-permission android:name="android.permission.USES_POLICY_FORCE_LOCK" />
+     <uses-permission android:name="android.permission.VIBRATE" />
+      
+    <application android:label="@string/app_name" >
+        <activity android:name="ServiceLockTest"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+   
+        
+        
+        <service android:enabled="true"
+                 android:name=".TheService">
+        </service>
+        
+        <!--Receives intents from Ghost Log app to start & stop the integration service-->
+        <receiver android:name="com.readystatesoftware.ghostlog.integration.IntegrationReceiver" 
+	    android:permission="com.readystatesoftware.ghostlog.permission.READ_LOGS" >
+	    <intent-filter>
+	    <action android:name="com.readystatesoftware.ghostlog.integration.COMMAND" />
+	    </intent-filter>
+		</receiver>
+		<!--Reads logs and broadcasts them to Ghost Log-->
+		<service android:name="com.readystatesoftware.ghostlog.integration.IntegrationService" />
+	        
+        <receiver
+			android:name="Off"
+			android:permission="android.permission.BIND_DEVICE_ADMIN">
+			<meta-data
+				android:name="android.app.device_admin"
+				android:resource="@xml/device_admin"/>
+
+			<intent-filter>
+				<action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+				
+			</intent-filter>
+		</receiver>
+		
+		    <!-- Declaring broadcast receiver for BOOT_COMPLETED event -->
+				<receiver android:name="MyReceiver">  
+		           	<intent-filter>  
+		            <action android:name="android.intent.action.BOOT_COMPLETED" />  
+		    		</intent-filter>  
+				</receiver>
+    </application>
+   
+</manifest> 
